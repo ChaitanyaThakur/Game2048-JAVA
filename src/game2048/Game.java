@@ -52,6 +52,7 @@ public class Game {
 					restart();
 					displayBoard();
 				} else if(input == 5) {
+					System.out.println("Thank you for playing. You may close the game.");
 					break;
 				}
 				
@@ -95,117 +96,124 @@ public class Game {
 	
 	//moving functions
 	
-
-    public void addScore(int increment) {
-        score += increment;
-    }
-
-
-    public boolean moveUp() {
-        boolean moved = false;
-        for (int j = 0; j < 4; j++) {
-            int lastMergedRow = -1;
-            for (int i = 0; i < 4; i++) {
-                if (board[i][j] != 0) {
-                    int k = i;
-                    while (k > 0 && board[k-1][j] == 0) {
-                        board[k-1][j] = board[k][j];
-                        board[k][j] = 0;
-                        k--;
-                        moved = true;
-                    }
-                    if (k > 0 && board[k-1][j] == board[k][j] && lastMergedRow != k-1) {
-                        board[k-1][j] *= 2;
-                        addScore(board[k-1][j]);
-                        board[k][j] = 0;
-                        lastMergedRow = k-1;
-                        moved = true;
-                    }
-                }
-            }
-        }
-        return moved;
-    }
-
-
-    public boolean moveDown() {
-            boolean moved = false;
-            for (int j = 0; j < 4; j++) {
-                int lastMergedRow = -1;
-                for (int i = 3; i >= 0; i--) {
-                    if (board[i][j] != 0) {
-                        int k = i;
-                        while (k < 3 && board[k+1][j] == 0) {
-                            board[k+1][j] = board[k][j];
-                            board[k][j] = 0;
-                            k++;
-                            moved = true;
-                        }
-                        if (k < 3 && board[k+1][j] == board[k][j] && lastMergedRow != k+1) {
-                            board[k+1][j] *= 2;
-                            addScore(board[k+1][j]);
-                            board[k][j] = 0;
-                            lastMergedRow = k+1;
-                            moved = true;
-                        }
-                    }
-                }
-            }
-            return moved;
-    }
-
-    public boolean moveLeft() {
-        boolean moved = false;
-        for (int i = 0; i < 4; i++) {
-            int lastMergedCol = -1;
-            for (int j = 0; j < 4; j++) {
-                if (board[i][j] != 0) {
-                    int k = j;
-                    while (k > 0 && board[i][k-1] == 0) {
-                        board[i][k-1] = board[i][k];
-                        board[i][k] = 0;
-                        k--;
-                        moved = true;
-                    }
-                    if (k > 0 && board[i][k-1] == board[i][k] && lastMergedCol != k-1) {
-                        board[i][k-1] *= 2;
-                        addScore(board[i][k-1]);
-                        board[i][k] = 0;
-                        lastMergedCol = k-1;
-                        moved = true;
-                    }
-                }
-            }
-        }
-        return moved;
-    }
-
-
-    public boolean moveRight() {
-        boolean moved = false;
-        for (int i = 0; i < 4; i++) {
-            int lastMergedCol = 4;
-            for (int j = 3; j >= 0; j--) {
-                if (board[i][j] != 0) {
-                    int k = j;
-                    while (k < 3 && board[i][k+1] == 0) {
-                        board[i][k+1] = board[i][k];
-                        board[i][k] = 0;
-                        k++;
-                        moved = true;
-                    }
-                    if (k < 3 && board[i][k+1] == board[i][k] && lastMergedCol != k+1) {
-                        board[i][k+1] *= 2;
-                        addScore(board[i][k+1]);
-                        board[i][k] = 0;
-                        lastMergedCol = k+1;
-                        moved = true;
-                    }
-                }
-            }
-        }
-        return moved;
-    }
+	//move
+	
+	public boolean moveUp() {
+		boolean moved = false;
+		for(int j=0; j<4;j++) {  //row
+			int lastMergedRow = -1;
+			for(int i = 0; i<4; i++) { //column
+				if (board[i][j] != 0) {
+					int k=i;
+					while(k>0 && board[k-1][j] == 0) {
+						board[k-1][j] = board[k][j];
+						board[k][j] = 0;
+						k--;
+						moved = true;
+					}
+					if (k>0 && board[k-1][j] == board[k][j] && lastMergedRow != k-1) {
+						board[k-1][j] *= 2;
+						addScore(board[k-1][j]);
+						board[k][j] =0;
+						lastMergedRow= k-1;
+						moved = true;
+					}
+				}
+			}
+			
+		}
+		return moved;
+	}
+	
+	public boolean moveDown() {
+		boolean moved = false;
+		for(int j=0; j<4;j++) {  //row
+			int lastMergedRow = -1;
+			for(int i = 3; i>=0; i--) { //column
+				if (board[i][j] != 0) {
+					int k=i;
+					while(k<3 && board[k+1][j] == 0) {
+						board[k+1][j] = board[k][j];
+						board[k][j] = 0;
+						k++;
+						moved = true;
+					}
+					if (k<3 && board[k+1][j] == board[k][j] && lastMergedRow != k+1) {
+						board[k+1][j] *= 2;
+						addScore(board[k+1][j]);
+						board[k][j] =0;
+						lastMergedRow= k+1;
+						moved = true;
+					}
+				}
+			}
+			
+		}
+		return moved;
+	}
+	
+	
+	public boolean moveLeft() {
+		boolean moved = false;
+		for(int i=0; i<4;i++) {  //column
+			int lastMergedCol = -1;
+			for(int j = 0; j<4; j++) { //row
+				if (board[i][j] != 0) {
+					int k=j;
+					while(k>0 && board[i][k-1] == 0) {
+						board[i][k-1] = board[i][k];
+						board[i][k] = 0;
+						k--;
+						moved = true;
+					}
+					if (k>0 && board[i][k-1] == board[i][k] && lastMergedCol != k-1) {
+						board[i][k-1] *= 2;
+						addScore(board[i][k-1]);
+						board[i][k] =0;
+						lastMergedCol= k-1;
+						moved = true;
+					}
+				}
+			}
+			
+		}
+		return moved;
+	}
+	
+	public boolean moveRight() {
+		boolean moved = false;
+		for(int i=0; i<4;i++) {  //column
+			int lastMergedCol = -1;
+			for(int j = 3; j>=0; j--) { //row
+				if (board[i][j] != 0) {
+					int k=j;
+					while(k<3 && board[i][k-1] == 0) {
+						board[i][k+1] = board[i][k];
+						board[i][k] = 0;
+						k++;
+						moved = true;
+					}
+					if (k<3 && board[i][k-1] == board[i][k] && lastMergedCol != k+1) {
+						board[i][k+1] *= 2;
+						addScore(board[i][k+1]);
+						board[i][k] =0;
+						lastMergedCol= k+1;
+						moved = true;
+					}
+				}
+			}
+			
+		}
+		return moved;
+	}
+	
+	
+	//if tiles merge, update score 
+	
+	public void addScore(int increment) {
+		score += increment;
+	}
+	
 
 	
 	//isGameOver
@@ -243,7 +251,7 @@ public class Game {
 	}
 	//DisplayBoARD
 	public void displayBoard() {
-		System.out.println("--------------");
+		System.out.println("----");
 		for(int i=0;i<4;i++) { // scan every row
 			for(int j=0;j<4;j++) { // scan every column inside row 
 				
@@ -255,7 +263,7 @@ public class Game {
 					System.out.printf("%4d", board[i][j]);
 				}
 				System.out.println("|");
-				System.out.println("---------------");
+				System.out.println("----");
 			}
 		}
 	}
@@ -273,6 +281,7 @@ public class Game {
 	//quit
 	public void quit() {
 		//quit the game
+	
 	}
 	
 }
